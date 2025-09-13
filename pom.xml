@@ -31,7 +31,7 @@
   <developers>
     <developer>
       <name>José San Leandro</name>
-      <email>rydnr@acm-sl.org</email>
+      <email>github@acm-sl.org</email>
       <url>https://github.com/rydnr</url>
     </developer>
   </developers>
@@ -60,6 +60,7 @@
     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+    <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
     
     <!-- Dependency versions -->
     <lombok.version>1.18.30</lombok.version>
@@ -203,6 +204,17 @@
           <doclint>none</doclint>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${central-publishing-maven-plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>ossrh</publishingServerId>
+          <autoPublish>true</autoPublish>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   
@@ -226,6 +238,12 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
           </plugin>
           
           <!-- Nexus staging plugin -->
